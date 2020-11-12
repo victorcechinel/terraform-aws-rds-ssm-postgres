@@ -1,3 +1,9 @@
+provider "aws" {
+  alias   = "sa-east-1"
+  version = "~> 2.0"
+  region  = "sa-east-1"
+}
+
 resource "random_password" "random_password_postgres" {
   length  = 20
   special = false
