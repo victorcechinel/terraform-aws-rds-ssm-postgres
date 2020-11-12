@@ -1,7 +1,5 @@
 provider "aws" {
-  alias   = "sa-east-1"
-  version = "~> 2.0"
-  region  = "sa-east-1"
+  region = "sa-east-1"
 }
 
 resource "random_password" "random_password_postgres" {
@@ -63,7 +61,7 @@ resource "aws_db_instance" "rds_postgres" {
 }
 
 resource "aws_ssm_parameter" "default_postgres_ssm_parameter_identifier" {
-  count = var.enabled_ssm_parameter_store
+  count = var.enabled_ssm_parameter_store ? 1 : 0
 
   name  = "/rds/db/${var.identifier}/identifier"
   value = var.identifier
@@ -73,7 +71,7 @@ resource "aws_ssm_parameter" "default_postgres_ssm_parameter_identifier" {
 }
 
 resource "aws_ssm_parameter" "default_postgres_ssm_parameter_endpoint" {
-  count = var.enabled_ssm_parameter_store
+  count = var.enabled_ssm_parameter_store ? 1 : 0
 
   name  = "/rds/db/${var.identifier}/endpoint"
   value = aws_db_instance.rds_postgres.endpoint
@@ -83,7 +81,7 @@ resource "aws_ssm_parameter" "default_postgres_ssm_parameter_endpoint" {
 }
 
 resource "aws_ssm_parameter" "default_postgres_ssm_parameter_username" {
-  count = var.enabled_ssm_parameter_store
+  count = var.enabled_ssm_parameter_store ? 1 : 0
 
   name  = "/rds/db/${var.identifier}/superuser/username"
   value = var.username
@@ -93,7 +91,7 @@ resource "aws_ssm_parameter" "default_postgres_ssm_parameter_username" {
 }
 
 resource "aws_ssm_parameter" "default_postgres_ssm_parameter_password" {
-  count = var.enabled_ssm_parameter_store
+  count = var.enabled_ssm_parameter_store ? 1 : 0
 
   name  = "/rds/db/${var.identifier}/superuser/password"
   value = aws_db_instance.rds_postgres.password
