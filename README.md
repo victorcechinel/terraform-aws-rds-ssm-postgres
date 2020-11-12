@@ -32,9 +32,9 @@ provider "aws" {
 module "aws_rds_postgres" {
   source = "victorcechinel/terraform-aws-rds-ssm-postgres"
 
-  identifier = "rds-identifier"
-  subnet_group = "my-subnet-group"
-  parameter_group = "my-parameter-group"
+  identifier             = "rds-identifier"
+  subnet_group           = "my-subnet-group"
+  parameter_group        = "my-parameter-group"
   vpc_security_group_ids = ["vpc-group-id"]
 }
 ```
