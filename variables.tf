@@ -14,7 +14,7 @@ variable "username" {
 
 variable "engine_version" {
   type    = string
-  default = "12.4"
+  default = "12.5"
 }
 
 variable "instance_class" {
