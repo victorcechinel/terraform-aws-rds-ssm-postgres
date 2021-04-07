@@ -66,6 +66,7 @@ resource "aws_ssm_parameter" "default_postgres_ssm_parameter_identifier" {
   name  = "/rds/db/${var.identifier}/identifier"
   value = var.identifier
   type  = "String"
+  tags  = var.tags
 
   overwrite = true
 }
@@ -76,6 +77,7 @@ resource "aws_ssm_parameter" "default_postgres_ssm_parameter_endpoint" {
   name  = "/rds/db/${var.identifier}/endpoint"
   value = aws_db_instance.rds_postgres.endpoint
   type  = "String"
+  tags  = var.tags
 
   overwrite = true
 }
@@ -86,6 +88,7 @@ resource "aws_ssm_parameter" "default_postgres_ssm_parameter_username" {
   name  = "/rds/db/${var.identifier}/superuser/username"
   value = var.username
   type  = "String"
+  tags  = var.tags
 
   overwrite = true
 }
@@ -96,6 +99,7 @@ resource "aws_ssm_parameter" "default_postgres_ssm_parameter_password" {
   name  = "/rds/db/${var.identifier}/superuser/password"
   value = aws_db_instance.rds_postgres.password
   type  = "String"
+  tags  = var.tags
 
   overwrite = true
 }
