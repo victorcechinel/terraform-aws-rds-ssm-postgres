@@ -46,7 +46,7 @@ provider "aws" {
 
 module "aws_rds_postgres" {
   source  = "victorcechinel/rds-ssm-postgres/aws"
-  version = "1.0.3"
+  version = "1.0.4"
 
   identifier             = "rds-identifier"
   subnet_group           = "my-subnet-group"
