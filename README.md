@@ -1,6 +1,6 @@
 # AWS RDS Postgres SSM
 
-![Terraform Version](https://img.shields.io/badge/tf-%3E%3D0.12.0-blue.svg) [![MIT Licensed](https://img.shields.io/badge/license-MIT-green.svg)](https://tldrlegal.com/license/mit-license)
+![Terraform Version](https://img.shields.io/badge/tf-%3E%3D0.13.6-blue.svg) [![MIT Licensed](https://img.shields.io/badge/license-MIT-green.svg)](https://tldrlegal.com/license/mit-license)
 
 Terraform Module to provision an AWS instance RDS Postgres and store credentials on Parameter Store.
 
@@ -8,29 +8,45 @@ Terraform Module to provision an AWS instance RDS Postgres and store credentials
 
 This Terraform module creates the following AWS resources:
 
-* **RDS**: instace Postgres RDS.
+* **RDS**: instace Postgres RDS;
 * **Parameter Store**
-  * identifier: save database identifier.
-  * endpoint: save database endpoint.
-  * username: save database superuser.
-  * passsword: save database superuser password (random generated).
+  * identifier: save database identifier;
+  * endpoint: save database endpoint;
+  * username: save database superuser;
+  * passsword: save database superuser password (random generated);
 
 ## Requirements
 
-* This module is meant for use with [Terraform](https://www.terraform.io/downloads.html) 0.12+. It has not been tested with previous versions of Terraform.
+* This module is meant for use with [Terraform](https://www.terraform.io/downloads.html) 0.13+. It has not been tested with previous versions of Terraform.
 * An AWS account and your credentials (`aws_access_key_id` and `aws_secret_access_key`) configured. There are several ways to do this (environment variables, shared credentials file, etc.): my preference is to store them in a [credential file](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html). More information in the [AWS Provider](https://www.terraform.io/docs/providers/aws/index.html) documentation.
 
 ## Usage
 
 ```HCL
+terraform {
+  required_version = ">= 0.13"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.0"
+    }
+
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.0"
+    }
+  }
+}
+
 provider "aws" {
-  version                 = "~> 2.0"
   region                  = "sa-east-1"
   shared_credentials_file = "~/.aws/credentials"
 }
 
 module "aws_rds_postgres" {
-  source = "victorcechinel/rds-ssm-postgres/aws"
+  source  = "victorcechinel/rds-ssm-postgres/aws"
+  version = "1.0.3"
 
   identifier             = "rds-identifier"
   subnet_group           = "my-subnet-group"
@@ -47,7 +63,7 @@ Although AWS services are available in many locations, some of them require the 
 ## Inputs
 
 | Name                   | Description                 | Type        | Default | Required |
-|------------------------|-----------------------------|:-----------:|:-:      |:--------:|
+| ---------------------- | --------------------------- | ----------- | ------- | -------- |
 | identifier             | Database identifier         | string      | -       | yes      |
 | subnet_group           | Database subnet group       | string      | -       | yes      |
 | parameter_group        | Database parameter group    | string      | -       | yes      |
@@ -56,7 +72,7 @@ Although AWS services are available in many locations, some of them require the 
 ## Outputs
 
 | Name                  | Description                 |
-|-----------------------|-----------------------------|
+| --------------------- | --------------------------- |
 | rds_postgres_endpoint | Database endpoint           |
 | rds_postgres_username | Database superuser          |
 | rds_postgres_password | Database superuser password |
