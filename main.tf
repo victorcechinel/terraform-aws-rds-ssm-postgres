@@ -1,7 +1,3 @@
-provider "aws" {
-  region = "sa-east-1"
-}
-
 resource "random_password" "random_password_postgres" {
   length  = 20
   special = false
@@ -63,7 +59,7 @@ resource "aws_db_instance" "rds_postgres" {
 resource "aws_ssm_parameter" "default_postgres_ssm_parameter_identifier" {
   count = var.enabled_ssm_parameter_store ? 1 : 0
 
-  name  = "/rds/db/${var.identifier}/identifier"
+  name  = format("/rds/db/%s/identifier", var.identifier)
   value = var.identifier
   type  = "String"
   tags  = var.tags
@@ -74,7 +70,7 @@ resource "aws_ssm_parameter" "default_postgres_ssm_parameter_identifier" {
 resource "aws_ssm_parameter" "default_postgres_ssm_parameter_endpoint" {
   count = var.enabled_ssm_parameter_store ? 1 : 0
 
-  name  = "/rds/db/${var.identifier}/endpoint"
+  name  = format("/rds/db/%s/endpoint", var.identifier)
   value = aws_db_instance.rds_postgres.endpoint
   type  = "String"
   tags  = var.tags
@@ -85,7 +81,7 @@ resource "aws_ssm_parameter" "default_postgres_ssm_parameter_endpoint" {
 resource "aws_ssm_parameter" "default_postgres_ssm_parameter_username" {
   count = var.enabled_ssm_parameter_store ? 1 : 0
 
-  name  = "/rds/db/${var.identifier}/superuser/username"
+  name  = format("/rds/db/%s/superuser/username", var.identifier)
   value = var.username
   type  = "String"
   tags  = var.tags
@@ -96,7 +92,7 @@ resource "aws_ssm_parameter" "default_postgres_ssm_parameter_username" {
 resource "aws_ssm_parameter" "default_postgres_ssm_parameter_password" {
   count = var.enabled_ssm_parameter_store ? 1 : 0
 
-  name  = "/rds/db/${var.identifier}/superuser/password"
+  name  = format("/rds/db/%s/superuser/password", var.identifier)
   value = aws_db_instance.rds_postgres.password
   type  = "String"
   tags  = var.tags
