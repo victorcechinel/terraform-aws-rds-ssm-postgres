@@ -45,7 +45,7 @@ resource "aws_db_instance" "rds_postgres" {
   performance_insights_retention_period = var.performance_insights_retention_period
 
   lifecycle {
-    ignore_changes = [password]
+    ignore_changes = [password, latest_restorable_time, monitoring_interval]
   }
 
   tags = var.tags
