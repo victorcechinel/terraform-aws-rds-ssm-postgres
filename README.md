@@ -1,3 +1,9 @@
+> **⚠️ This repository has been archived and is no longer maintained.**
+>
+> Thank you for your interest in this project. Please note that this repository is now **archived** and **discontinued**.
+>
+> We kindly recommend using the official community module [`terraform-aws-modules/terraform-aws-rds`](https://github.com/terraform-aws-modules/terraform-aws-rds) for AWS RDS provisioning and management, as it is actively maintained and widely adopted.
+
 # AWS RDS Postgres SSM
 
 ![Terraform Version](https://img.shields.io/badge/tf-%3E%3D1.0.3-blue.svg) [![MIT Licensed](https://img.shields.io/badge/license-MIT-green.svg)](https://tldrlegal.com/license/mit-license)
@@ -8,12 +14,12 @@ Terraform Module to provision an AWS instance RDS Postgres and store credentials
 
 This Terraform module creates the following AWS resources:
 
-* **RDS**: instace Postgres RDS;
+* **RDS**: Postgres RDS instance;
 * **Parameter Store**
   * identifier: save database identifier;
   * endpoint: save database endpoint;
   * username: save database superuser;
-  * passsword: save database superuser password (random generated);
+  * password: save database superuser password (randomly generated);
 
 ## Requirements
 
@@ -83,5 +89,5 @@ Contributions and comments are welcomed.
 
 ## Todo
 
-* Save parameter store secure;
-* Lambda to connect database and create data;
+* Save parameter store securely;
+* Lambda to connect to the database and create data;
